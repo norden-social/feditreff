@@ -5,12 +5,13 @@ An interactive map displaying Mastodon community meetups with hashtags. Each mar
 ---
 
 ## 📂 Project Structure
-
+```
 fediverse-meetup-map/
 ├── index.html      # Main file with the map
 ├── meetups.json    # Meetup data (hashtags, locations, coordinates)
 ├── README.md       # This guide
 └── .gitignore      # Ignored files
+```
 
 ---
 

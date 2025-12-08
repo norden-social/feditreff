@@ -1,0 +1,16 @@
+[
+  {
+    "hashtag": "#feditreffhb",
+    "ort": "Bremen",
+    "lat": 53.076812189377286,
+    "lng": 8.808041414635886,
+    "mastodon_server": "mastodon.social"
+  },
+  {
+    "hashtag": "#FediglüHH",
+    "ort": "Hamburg",
+    "lat": 53.55546109831545,
+    "lng": 10.00851502348795,
+    "mastodon_server": "mastodon.social"
+  }
+]
