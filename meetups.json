@@ -12,5 +12,12 @@
     "lat": 53.55546109831545,
     "lng": 10.00851502348795,
     "mastodon_server": "mastodon.social"
+  },
+  {
+    "hashtag": "#feditreffOldenburg",
+    "ort": "Oldenburg",
+    "lat": 53.14390338601974,
+    "lng": 8.220814571454673,
+    "mastodon_server": "mastodon.social"
   }
 ]
