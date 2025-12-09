@@ -55,13 +55,8 @@ jobs:
             --arg beschreibung "$BESCHREIBUNG" \
             '{hashtag: $hashtag, ort: $ort, lat: ($lat | tonumber), lng: ($lng | tonumber), mastodon_server: "mastodon.social", beschreibung: $beschreibung}')
           
-          echo "NEW_MEETUP<<EOF" >> $GITHUB_ENV
-          echo "$NEW_MEETUP" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
-      - name: Create New Branch
-        run: |
-          git checkout -b "neues-treffen-${{ github.event.issue.number }}"
+          # Speichere als Output für nächste Steps
+          echo "meetup=$(echo "$NEW_MEETUP" | jq -c .)" >> $GITHUB_OUTPUT
 
       - name: Update meetups.json
         run: |
@@ -71,13 +66,11 @@ jobs:
           fi
           
           # Füge das neue Treffen zur meetups.json hinzu
-          jq --argjson new_meetup "$NEW_MEETUP" '. += [$new_meetup]' meetups.json > meetups_temp.json && mv meetups_temp.json meetups.json
-
-      - name: Commit and Push Changes
-        run: |
-          git add meetups.json
-          git commit -m "Neues Treffen hinzugefügt: ${{ github.event.issue.title }}"
-          git push origin "neues-treffen-${{ github.event.issue.number }}"
+          jq --argjson new_meetup '${{ steps.extract-issue.outputs.meetup }}' '. += [$new_meetup]' meetups.json > meetups_temp.json && mv meetups_temp.json meetups.json
+          
+          # Zeige Änderung
+          echo "Neue meetups.json:"
+          jq . meetups.json
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
@@ -96,3 +89,4 @@ jobs:
           branch: "neues-treffen-${{ github.event.issue.number }}"
           base: main
           delete-branch: true
+          add-paths: meetups.json
