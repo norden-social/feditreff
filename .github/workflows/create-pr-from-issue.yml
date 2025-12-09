@@ -7,6 +7,9 @@ jobs:
   create-pr:
     if: contains(github.event.issue.labels.*.name, 'neues-treffen') || contains(github.event.issue.labels.*.name, 'neues treffen')
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -67,15 +70,10 @@ jobs:
           
           # Füge das neue Treffen zur meetups.json hinzu
           jq --argjson new_meetup '${{ steps.extract-issue.outputs.meetup }}' '. += [$new_meetup]' meetups.json > meetups_temp.json && mv meetups_temp.json meetups.json
-          
-          # Zeige Änderung
-          echo "Neue meetups.json:"
-          jq . meetups.json
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Neues Treffen hinzugefügt: ${{ github.event.issue.title }}"
           title: "Neues Treffen: ${{ github.event.issue.title }}"
           body: |
@@ -89,7 +87,3 @@ jobs:
           branch: "neues-treffen-${{ github.event.issue.number }}"
           base: main
           delete-branch: true
-          add-paths: |
-            meetups.json
-          committer: GitHub Actions <actions@github.com>
-          author: GitHub Actions <actions@github.com>
