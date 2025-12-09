@@ -89,4 +89,7 @@ jobs:
           branch: "neues-treffen-${{ github.event.issue.number }}"
           base: main
           delete-branch: true
-          add-paths: meetups.json
+          add-paths: |
+            meetups.json
+          committer: GitHub Actions <actions@github.com>
+          author: GitHub Actions <actions@github.com>
