@@ -7,9 +7,6 @@ jobs:
   create-pr:
     if: contains(github.event.issue.labels.*.name, 'neues-treffen') || contains(github.event.issue.labels.*.name, 'neues treffen')
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -71,19 +68,21 @@ jobs:
           # Füge das neue Treffen zur meetups.json hinzu
           jq --argjson new_meetup '${{ steps.extract-issue.outputs.meetup }}' '. += [$new_meetup]' meetups.json > meetups_temp.json && mv meetups_temp.json meetups.json
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
-        with:
-          commit-message: "Neues Treffen hinzugefügt: ${{ github.event.issue.title }}"
-          title: "Neues Treffen: ${{ github.event.issue.title }}"
-          body: |
-            Dieses Pull Request fügt ein neues Treffen hinzu, das über ein Issue vorgeschlagen wurde:
-            ${{ github.event.issue.html_url }}
+      - name: Create Branch and Push
+        run: |
+          BRANCH="neues-treffen-${{ github.event.issue.number }}"
+          git checkout -b "$BRANCH"
+          git add meetups.json
+          git commit -m "Neues Treffen hinzugefügt: ${{ github.event.issue.title }}"
+          git push -u origin "$BRANCH"
 
-            Bitte prüfe folgende Punkte:
-            - Koordinaten korrekt?
-            - Hashtag richtig geschrieben?
-            - Beschreibung sinnvoll?
-          branch: "neues-treffen-${{ github.event.issue.number }}"
-          base: main
-          delete-branch: true
+      - name: Comment on Issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ Neues Treffen hinzugefügt!\n\nDie Daten wurden in die `meetups.json` eingefügt und sind im Branch `neues-treffen-${{ github.event.issue.number }}` verfügbar.\n\n👉 [Pull Request erstellen](https://github.com/${{ github.repository }}/compare/main...neues-treffen-${{ github.event.issue.number }}?quick_pull=1)'
+            })
