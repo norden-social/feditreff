@@ -71,6 +71,9 @@ jobs:
       - name: Create Branch and Push
         run: |
           BRANCH="neues-treffen-${{ github.event.issue.number }}"
+          # Lösche Remote-Branch falls er existiert
+          git push origin --delete "$BRANCH" || true
+          # Erstelle neuen Branch
           git checkout -b "$BRANCH"
           git add meetups.json
           git commit -m "Neues Treffen hinzugefügt: ${{ github.event.issue.title }}"
