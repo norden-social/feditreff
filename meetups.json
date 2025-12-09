@@ -27,5 +27,13 @@
     "lng": 11.30815,
     "mastodon_server": "mastodon.social",
     "beschreibung": "Das FediCamp ist ein Treffen von Menschen, die sich über das Fediverse kennengelernt haben. Hier erwarten dich entspannte Tage mit Workshops, Freizeit, Austausch und viel guter Gesellschaft."
+  },
+  {
+    "hashtag": "#FediTreffECK",
+    "ort": "Ostseebad Eckernförde",
+    "lat": 54.468072,
+    "lng": 9.8357,
+    "mastodon_server": "mastodon.social",
+    "beschreibung": "Treffen nach Vereinbarung in Eckernförde."
   }
 ]
