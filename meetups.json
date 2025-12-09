@@ -26,7 +26,7 @@
     "lat": 53.03011,
     "lng": 11.30815,
     "mastodon_server": "mastodon.social",
-    "beschreibung": "Das FediCamp ist ein Treffen von Menschen, die sich über das Fediverse kennengelernt haben. Hier erwarten dich entspannte Tage mit Workshops, Freizeit, Austausch und viel guter Gesellschaft."
+    "beschreibung": "Das FediCamp ist ein Treffen von Menschen, die sich über das Fediverse kennengelernt haben. Hier erwarten dich entspannte Tage mit Workshops, Freizeit, Austausch und viel guter G..."
   },
   {
     "hashtag": "#FediTreffECK",
@@ -36,6 +36,7 @@
     "mastodon_server": "mastodon.social",
     "beschreibung": "Treffen nach Vereinbarung in Eckernförde."
   },
+  {
     "hashtag": "#FediTreffKiel",
     "ort": "Kiel",
     "lat": 54.315626,
