@@ -1,7 +1,7 @@
 name: Neues Treffen vorschlagen
 description: Schlage ein neues Fediverse-Treffen vor.
 title: "[Neues Treffen] "
-labels: ["neues-treffen"]
+labels: ["neues treffen"]
 assignees: []
 body:
   - type: input
@@ -15,27 +15,27 @@ body:
   - type: input
     id: ort
     attributes:
-      label: Ort
-      description: Stadt oder Adresse
-      placeholder: "Berlin"
+      label: Ort / Adresse
+      description: Stadt oder vollständige Adresse (Koordinaten werden automatisch ermittelt)
+      placeholder: "Berlin oder Berlin, Alexanderplatz 1"
     validations:
       required: true
   - type: input
     id: lat
     attributes:
-      label: Breitengrad
-      description: z. B. 52.5200
+      label: Breitengrad (optional)
+      description: Falls bekannt, kann die genaue Koordinate angegeben werden. Wird sonst automatisch ermittelt.
       placeholder: "52.5200"
     validations:
-      required: true
+      required: false
   - type: input
     id: lng
     attributes:
-      label: Längengrad
-      description: z. B. 13.4050
+      label: Längengrad (optional)
+      description: Falls bekannt, kann die genaue Koordinate angegeben werden. Wird sonst automatisch ermittelt.
       placeholder: "13.4050"
     validations:
-      required: true
+      required: false
   - type: textarea
     id: beschreibung
     attributes:

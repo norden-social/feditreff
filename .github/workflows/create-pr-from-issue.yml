@@ -31,9 +31,25 @@ jobs:
           BESCHREIBUNG=$(echo "$BODY" | awk '/### Beschreibung/{getline; getline; print}' | xargs)
           
           # Validierung erforderlicher Felder
-          if [ -z "$HASHTAG" ] || [ -z "$ORT" ] || [ -z "$LAT" ] || [ -z "$LNG" ]; then
-            echo "Fehler: Erforderliche Felder fehlen"
+          if [ -z "$HASHTAG" ] || [ -z "$ORT" ]; then
+            echo "Fehler: Hashtag und Ort sind erforderlich"
             exit 1
+          fi
+          
+          # Wenn Koordinaten nicht angegeben, finde sie automatisch aus der Adresse
+          if [ -z "$LAT" ] || [ -z "$LNG" ]; then
+            echo "Geocodiere Adresse: $ORT"
+            # URL-encode die Adresse für Nominatim
+            ENCODED=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$ORT'))")
+            GEOCODING=$(curl -s "https://nominatim.openstreetmap.org/search?q=$ENCODED&format=json&limit=1")
+            LAT=$(echo "$GEOCODING" | jq -r '.[0].lat // empty')
+            LNG=$(echo "$GEOCODING" | jq -r '.[0].lon // empty')
+            
+            if [ -z "$LAT" ] || [ -z "$LNG" ]; then
+              echo "Fehler: Konnte Koordinaten für '$ORT' nicht finden"
+              exit 1
+            fi
+            echo "Gefundene Koordinaten - Lat: $LAT, Lng: $LNG"
           fi
           
           # Validiere Zahlenformat für Koordinaten
