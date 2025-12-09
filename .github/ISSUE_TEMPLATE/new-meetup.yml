@@ -1,0 +1,46 @@
+name: Neues Treffen vorschlagen
+description: Schlage ein neues Fediverse-Treffen vor.
+title: "[Neues Treffen] "
+labels: ["neues-treffen"]
+assignees: []
+body:
+  - type: input
+    id: hashtag
+    attributes:
+      label: Hashtag
+      description: z. B. #feditreffberlin
+      placeholder: "#feditreffberlin"
+    validations:
+      required: true
+  - type: input
+    id: ort
+    attributes:
+      label: Ort
+      description: Stadt oder Adresse
+      placeholder: "Berlin"
+    validations:
+      required: true
+  - type: input
+    id: lat
+    attributes:
+      label: Breitengrad
+      description: z. B. 52.5200
+      placeholder: "52.5200"
+    validations:
+      required: true
+  - type: input
+    id: lng
+    attributes:
+      label: Längengrad
+      description: z. B. 13.4050
+      placeholder: "13.4050"
+    validations:
+      required: true
+  - type: textarea
+    id: beschreibung
+    attributes:
+      label: Beschreibung
+      description: Kurze Beschreibung oder Link zum Mastodon-Post
+      placeholder: "Monatliches Treffen im Café XY"
+    validations:
+      required: false
