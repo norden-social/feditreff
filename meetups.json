@@ -43,5 +43,13 @@
     "lng": 10.133035,
     "mastodon_server": "mastodon.social",
     "beschreibung": "Treffen nach Vereinbarung in Kiel."
+  },
+  {
+    "hashtag": "#FediTreffStuttgart",
+    "ort": "Augustenstraße 72, Stuttgart",
+    "lat": 48.7702118,
+    "lng": 9.1611014,
+    "mastodon_server": "mastodon.social",
+    "beschreibung": ""
   }
 ]
