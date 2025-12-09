@@ -19,5 +19,13 @@
     "lat": 53.14390338601974,
     "lng": 8.220814571454673,
     "mastodon_server": "mastodon.social"
+  },
+  {
+    "hashtag": "#fedicamp",
+    "ort": "Gedelitz",
+    "lat": 53.03011,
+    "lng": 11.30815,
+    "mastodon_server": "mastodon.social",
+    "beschreibung": "Das FediCamp ist ein Treffen von Menschen, die sich über das Fediverse kennengelernt haben. Hier erwarten dich entspannte Tage mit Workshops, Freizeit, Austausch und viel guter Gesellschaft."
   }
 ]
