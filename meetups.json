@@ -35,5 +35,12 @@
     "lng": 9.8357,
     "mastodon_server": "mastodon.social",
     "beschreibung": "Treffen nach Vereinbarung in Eckernförde."
+  },
+    "hashtag": "#FediTreffKiel",
+    "ort": "Kiel",
+    "lat": 54.315626,
+    "lng": 10.133035,
+    "mastodon_server": "mastodon.social",
+    "beschreibung": "Treffen nach Vereinbarung in Kiel."
   }
 ]
