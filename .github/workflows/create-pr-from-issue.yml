@@ -30,6 +30,11 @@ jobs:
           LNG=$(echo "$BODY" | awk '/### Längengrad/{getline; getline; print}' | xargs)
           BESCHREIBUNG=$(echo "$BODY" | awk '/### Beschreibung/{getline; getline; print}' | xargs)
           
+          # Behandle "_No response_" als leeren Wert
+          [ "$LAT" = "_No response_" ] && LAT=""
+          [ "$LNG" = "_No response_" ] && LNG=""
+          [ "$BESCHREIBUNG" = "_No response_" ] && BESCHREIBUNG=""
+          
           # Validierung erforderlicher Felder
           if [ -z "$HASHTAG" ] || [ -z "$ORT" ]; then
             echo "Fehler: Hashtag und Ort sind erforderlich"
