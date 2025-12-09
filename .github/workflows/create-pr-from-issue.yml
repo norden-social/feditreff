@@ -24,7 +24,6 @@ jobs:
           BODY="${{ github.event.issue.body }}"
           
           # Extrahiere Felder aus dem Format: "### Feldname\n\nWert\n"
-          # Das Template hat eine Leerzeile zwischen Heading und Wert
           HASHTAG=$(echo "$BODY" | awk '/### Hashtag/{getline; getline; print}' | xargs)
           ORT=$(echo "$BODY" | awk '/### Ort/{getline; getline; print}' | xargs)
           LAT=$(echo "$BODY" | awk '/### Breitengrad/{getline; getline; print}' | xargs)
@@ -33,25 +32,21 @@ jobs:
           
           # Validierung erforderlicher Felder
           if [ -z "$HASHTAG" ] || [ -z "$ORT" ] || [ -z "$LAT" ] || [ -z "$LNG" ]; then
-            echo "❌ Fehler: Erforderliche Felder fehlen"
-            echo "Hashtag: '$HASHTAG'"
-            echo "Ort: '$ORT'"
-            echo "Lat: '$LAT'"
-            echo "Lng: '$LNG'"
+            echo "Fehler: Erforderliche Felder fehlen"
             exit 1
           fi
           
           # Validiere Zahlenformat für Koordinaten
           if ! echo "$LAT" | grep -qE '^-?[0-9]+(\.[0-9]+)?$'; then
-            echo "❌ Fehler: Breitengrad ist keine gültige Zahl: $LAT"
+            echo "Fehler: Breitengrad ist keine gültige Zahl: $LAT"
             exit 1
           fi
           if ! echo "$LNG" | grep -qE '^-?[0-9]+(\.[0-9]+)?$'; then
-            echo "❌ Fehler: Längengrad ist keine gültige Zahl: $LNG"
+            echo "Fehler: Längengrad ist keine gültige Zahl: $LNG"
             exit 1
           fi
           
-          # Erstelle JSON-Objekt
+          # Erstelle JSON-Objekt mit sicheren String-Parametern
           NEW_MEETUP=$(jq -n \
             --arg hashtag "$HASHTAG" \
             --arg ort "$ORT" \
@@ -60,9 +55,9 @@ jobs:
             --arg beschreibung "$BESCHREIBUNG" \
             '{hashtag: $hashtag, ort: $ort, lat: ($lat | tonumber), lng: ($lng | tonumber), mastodon_server: "mastodon.social", beschreibung: $beschreibung}')
           
-          echo "NEW_MEETUP=$NEW_MEETUP" >> $GITHUB_ENV
-          echo "✅ Erfolgreich extrahiert:"
-          echo "$NEW_MEETUP" | jq .
+          echo "NEW_MEETUP<<EOF" >> $GITHUB_ENV
+          echo "$NEW_MEETUP" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Create New Branch
         run: |
