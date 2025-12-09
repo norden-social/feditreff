@@ -1,7 +1,7 @@
 name: Create Pull Request from Issue
 on:
   issues:
-    types: [labeled]
+    types: [labeled, opened]
 
 jobs:
   create-pr:
