@@ -5,7 +5,7 @@ on:
 
 jobs:
   create-pr:
-    if: github.event.label.name == 'neues-treffen' || contains(github.event.issue.labels.*.name, 'neues-treffen')
+    if: contains(github.event.issue.labels.*.name, 'neues-treffen') || contains(github.event.issue.labels.*.name, 'neues treffen')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
