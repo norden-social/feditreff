@@ -51,5 +51,13 @@
     "lng": 9.1611014,
     "mastodon_server": "mastodon.social",
     "beschreibung": ""
+  },
+  {
+    "hashtag": "#BonnerHerde",
+    "ort": "Bonn",
+    "lat": 50.7352621,
+    "lng": 7.1024635,
+    "mastodon_server": "mastodon.social",
+    "beschreibung": "No response"
   }
 ]
