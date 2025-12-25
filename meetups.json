@@ -59,5 +59,13 @@
     "lng": 7.1024635,
     "mastodon_server": "mastodon.social",
     "beschreibung": "No response"
+  },
+  {
+    "hashtag": "#SpinnerTreff",
+    "ort": "Freiburg im Breisgau",
+    "lat": 47.9960901,
+    "lng": 7.8494005,
+    "mastodon_server": "mastodon.social",
+    "beschreibung": "Frequenz absolut nicht vorhersehbar, folgt dem Hashtag (und vielleicht auch dem @foobarblubb@ohai.social)"
   }
 ]
