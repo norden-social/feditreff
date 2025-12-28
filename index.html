@@ -19,15 +19,16 @@
     
     <!-- About Dialog -->
     <dialog id="aboutDialog">
+        <button id="closeDialog" class="dialog-close" aria-label="Schließen">×</button>
         <h2>Über Feditreff</h2>
         <p>Feditreff ist eine interaktive Karte, die regionale Meetups der Fediverse-Community zeigt. Verantwortlich für die Idee ist <a href="https://norden.social/@barning">@barning</a></p>
         <p>Jeder Marker auf der Karte verlinkt direkt zum Mastodon-Feed des jeweiligen Hashtags, sodass du ganz einfach mit lokalen Communities in Kontakt treten kannst.</p>
         <p>Das Projekt verbindet Menschen, die sich für dezentralisierte soziale Netzwerke interessieren, und macht es einfacher, andere Enthusiasten in deiner Region zu finden.</p>
-        <button id="closeDialog">Schließen</button>
     </dialog>
     
     <!-- Submit Dialog -->
     <dialog id="submitDialog">
+        <button id="closeSubmit" class="dialog-close" aria-label="Schließen">×</button>
         <h2>Neues Fediverse-Treffen vorschlagen</h2>
         <p class="lead">Hashtag, Ort und (optional) Titel/Beschreibung eintragen. Die Koordinaten werden automatisch ermittelt und die Daten in ein vorgefülltes GitHub-Issue übernommen.</p>
         <form id="meetupForm" novalidate>
@@ -51,7 +52,7 @@
             <div id="previewMap" aria-label="Kartenansicht der gefundenen Adresse"></div>
         </form>
         <div class="dialog-footer">
-            <button type="button" class="secondary" id="closeSubmit">Schließen</button>
+            
             <button type="button" class="secondary" id="copyBtn">Daten kopieren</button>
             <button type="submit" form="meetupForm" class="primary" id="submitBtn">GitHub-Issue öffnen</button>
         </div>
