@@ -145,9 +145,14 @@ form.addEventListener('submit', async (event) => {
         return;
     }
 
-    const ort = ortInput.value.trim();
-    const hashtag = hashtagInput.value.trim();
+    let ort = ortInput.value.trim();
+    let hashtag = hashtagInput.value.trim();
     const beschreibung = beschreibungInput.value.trim();
+
+    // Ensure hashtag starts with #
+    if (hashtag && !hashtag.startsWith('#')) {
+        hashtag = `#${hashtag}`;
+    }
 
     try {
         const coords = await geocodeLocation(ort);
@@ -165,28 +170,55 @@ copyBtn.addEventListener('click', async () => {
         setStatus('Bitte fülle die Pflichtfelder aus.', 'error');
         return;
     }
-    const ort = ortInput.value.trim();
-    const hashtag = hashtagInput.value.trim();
+    let ort = ortInput.value.trim();
+    let hashtag = hashtagInput.value.trim();
     const beschreibung = beschreibungInput.value.trim();
+
+    // Ensure hashtag starts with #
+    if (hashtag && !hashtag.startsWith('#')) {
+        hashtag = `#${hashtag}`;
+    }
+
     try {
         const coords = lastCoords || await geocodeLocation(ort);
         const { bodyText } = buildIssueData({ hashtag, ort, beschreibung, coords });
         await navigator.clipboard.writeText(bodyText);
-        setStatus('Daten wurden in die Zwischenablage kopiert. Du kannst sie in Mail oder Messenger einfügen.', 'success');
+        setStatus('Daten im Issue-Template-Format in die Zwischenablage kopiert. Du kannst sie jetzt in das GitHub-Issue einfügen.', 'success');
     } catch (err) {
         setStatus(`❌ Fehler: ${err.message}`, 'error');
     }
 });
 
 function buildIssueData({ hashtag, ort, beschreibung, coords }) {
-    const bodyText = `**Hashtag:** ${hashtag}
-**Ort:** ${ort}
-**Breitengrad:** ${coords.lat}
-**Längengrad:** ${coords.lng}
-**Beschreibung:** ${beschreibung || '—'}`;
+    // If optional fields are missing, use the exact "_No response_" text the workflow expects
+    const lat = (coords && typeof coords.lat !== 'undefined') ? coords.lat : '_No response_';
+    const lng = (coords && typeof coords.lng !== 'undefined') ? coords.lng : '_No response_';
+    const desc = beschreibung && beschreibung.trim() !== '' ? beschreibung : '_No response_';
+
+    // Format matches the ISSUE_TEMPLATE: headings with an empty line before the value
+    const bodyText = `### Hashtag
+
+${hashtag}
+
+### Ort
+
+${ort}
+
+### Breitengrad
+
+${lat}
+
+### Längengrad
+
+${lng}
+
+### Beschreibung
+
+${desc}
+`;
+
     const customTitle = titleInput.value.trim();
     const title = customTitle || `Neues Treffen: ${ort}`;
     const issueUrl = `https://github.com/norden-social/feditreff/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(bodyText)}&labels=${encodeURIComponent('neues treffen')}`;
     return { bodyText, issueUrl };
 }
-
